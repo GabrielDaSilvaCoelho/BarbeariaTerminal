@@ -1,0 +1,153 @@
+:root {
+  --navy: #0b1730;
+  --navy-light: #162e63;
+  --blue: #355dab;
+  --gold: #ffb300;
+  --gold-dark: #e19a00;
+  --card: #f8fafc;
+  --text: #14213d;
+  --muted: #6b7280;
+  --border: #c8d2e4;
+  --danger: #ef4444;
+  --success: #16a34a;
+  --shadow: 0 14px 32px rgba(11, 23, 48, 0.15);
+  --radius: 18px;
+  --radius-sm: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Montserrat", "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy) 100%);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--card);
+  padding: 34px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+h1 {
+  margin-bottom: 8px;
+  font-family: "Oswald", "Arial Black", sans-serif;
+  font-size: 2.3rem;
+  color: var(--navy);
+  letter-spacing: 1px;
+}
+
+p {
+  margin-bottom: 20px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+input {
+  padding: 13px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: #f9fbff;
+  color: var(--text);
+  outline: none;
+  transition: 0.2s ease;
+}
+
+input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(53, 93, 171, 0.12);
+}
+
+button {
+  padding: 13px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--gold);
+  color: var(--navy);
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background: var(--gold-dark);
+  transform: translateY(-1px);
+}
+
+.feedback {
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.feedback.error {
+  color: var(--danger);
+}
+
+.feedback.success {
+  color: var(--success);
+}
+
+.link-text {
+  margin-top: 18px;
+}
+
+a {
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+a:hover {
+  color: var(--gold-dark);
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 16px;
+  }
+
+  .card {
+    padding: 24px;
+    border-radius: 14px;
+  }
+
+  h1 {
+    font-size: 1.9rem;
+  }
+
+  input,
+  button {
+    font-size: 0.95rem;
+  }
+}
