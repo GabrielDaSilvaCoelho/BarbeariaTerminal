@@ -1,259 +1,261 @@
 # BarberPro — Projeto Web Full-Stack
 
-O sistema BarberPro resolve o problema de gestão de serviços e agendamentos de uma barbearia, permitindo o uso por dois perfis distintos: administrador/barbeiro e cliente.
+O **BarberPro** é uma aplicação web full-stack desenvolvida para otimizar a gestão de serviços e agendamentos de uma barbearia.  
+O sistema atende dois perfis principais de usuário — **administrador/barbeiro** e **cliente** — oferecendo controle de agenda, cadastro de serviços e gerenciamento de atendimentos de forma digital, organizada e responsiva.
 
-# Objetivo do Projeto
 
-O BarberPro foi criado para digitalizar o processo de atendimento de uma barbearia, permitindo:
+#  Objetivo do Projeto
 
-* cadastro e autenticação de usuários
-* separação por perfis de acesso
-* cadastro de serviços
-* criação e gerenciamento de agendamentos
-* visualização de agenda
-* experiência responsiva para desktop e mobile
+O projeto foi desenvolvido com o objetivo de digitalizar o fluxo de atendimento de uma barbearia, permitindo:
+
+- cadastro e autenticação de usuários
+- separação por perfis de acesso
+- cadastro, edição e exclusão de serviços
+- criação e gerenciamento de agendamentos
+- visualização da agenda por perfil
+- experiência responsiva em desktop e mobile
+
+# Problema que o Sistema Resolve
+
+Em barbearias que ainda utilizam processos manuais ou comunicação informal para marcação de horários, é comum ocorrer:
+
+- conflitos de agendamento
+- dificuldade no controle da agenda
+- falta de padronização nos serviços cadastrados
+- dificuldade de acesso do cliente ao próprio histórico
+- pouca organização administrativa
+
+O BarberPro foi criado para resolver esse cenário por meio de uma aplicação web simples, funcional e acessível.
+
 
 # Arquitetura do Projeto
 
-O projeto foi estruturado em arquitetura em camadas
+O sistema foi estruturado em **arquitetura em camadas**, separando responsabilidades entre front-end, rotas, controladores, serviços, repositórios e middlewares.
+
+## Estrutura em camadas
+- **Routes** → definem os endpoints da API
+- **Controllers** → recebem as requisições HTTP e delegam as ações
+- **Services** → concentram as regras de negócio
+- **Repositories** → realizam o acesso ao banco de dados
+- **Middlewares** → tratam autenticação, autorização e erros
 
 # Tecnologias Utilizadas
 
 ## Back-end
-
-* Node.js
-* Express.js
-* PostgreSQL
-* JWT
-* bcrypt
-* dotenv
+- Node.js
+- Express.js
+- PostgreSQL
+- JWT
+- bcrypt
+- dotenv
 
 ## Front-end
-
-* HTML5 semântico
-* CSS3 responsivo
-* JavaScript Vanilla
-* Fetch API
-* LocalStorage
+- HTML5 semântico
+- CSS3 responsivo
+- JavaScript Vanilla
+- Fetch API
+- LocalStorage
 
 ## UI/UX
+- Bootstrap 5 como Design System base
+- Layout com sidebar, cards e feedback visual
+- Responsividade para desktop, tablet e mobile
+- Estados visuais de loading, erro, sucesso e empty state
+- Navegação com foco acessível por teclado
 
-* Layout baseado em cards + sidebar + feedback visual
-* Responsividade para desktop, tablet e mobile (375px+)
-* Estados de erro, sucesso, loading e empty state
-* Foco acessível para navegação por teclado
+# Design System Adotado
+
+O projeto adota o **Bootstrap 5** como base de Design System, conforme permitido pelo enunciado da atividade.
+
+A escolha foi feita por oferecer:
+
+- consistência visual entre telas e componentes
+- grid responsivo para diferentes resoluções
+- utilitários de espaçamento e alinhamento
+- integração simples com HTML, CSS e JavaScript puro
+- agilidade de implementação em um projeto de curto prazo
+
+Além do Bootstrap, foram aplicados ajustes visuais próprios para reforçar a identidade da aplicação, mantendo consistência entre cores, tipografia, botões, navegação e formulários.
 
 # Perfis de Usuário
 
 ## Administrador / Barbeiro
-
 Pode:
-
-* cadastrar serviços
-* editar serviços
-* excluir serviços
-* visualizar todos os agendamentos
-* gerenciar agenda
+- realizar login no sistema
+- visualizar todos os agendamentos
+- filtrar agendamentos por status
+- cadastrar serviços
+- editar serviços
+- excluir serviços
+- gerenciar a agenda geral da barbearia
 
 ## Cliente
-
 Pode:
-
-* criar conta
-* fazer login
-* visualizar serviços
-* criar agendamentos
-* cancelar agendamentos
-* visualizar histórico
+- criar conta
+- realizar login
+- visualizar seus agendamentos
+- criar novos agendamentos
+- cancelar/remover seus próprios agendamentos
+- consultar histórico de atendimentos
 
 # Autenticação
 
-**JWT (JSON Web Token)**.
+A autenticação é realizada por meio de **JWT (JSON Web Token)**.
 
-Fluxo:
-
-1. usuário realiza login
-2. API gera token JWT
-3. token é salvo no `localStorage`
-4. rotas protegidas usam `Authorization: Bearer <token>`
-5. middleware valida autenticação e perfil
+## Fluxo de autenticação
+1. o usuário realiza login com e-mail e senha
+2. a API gera um token JWT contendo `id` e `role`
+3. o token é armazenado no `localStorage`
+4. as requisições protegidas enviam o token no header `Authorization: Bearer <token>`
+5. middlewares validam autenticação e autorização por perfil
 
 # Banco de Dados
 
 Banco utilizado: **PostgreSQL**
 
 ## Entidades principais
+- `users`
+- `services`
+- `appointments`
 
-* `users`
-* `services`
-* `appointments`
-
-Relacionamentos:
-
-* um usuário pode ter vários agendamentos
-* um serviço pode ser usado em vários agendamentos
-
-# Seed do Projeto
-
-O projeto possui script de seed para demonstração.
-
-## Usuários criados
-
-* **[admin@barberpro.com](mailto:admin@barberpro.com)** → senha `123456`
-* **[frede@test.com](mailto:frede@test.com)** → senha `123456`
-
-Também são criados:
-
-* serviços de exemplo
-* agendamentos de demonstração
+## Relacionamentos
+- um cliente pode possuir vários agendamentos
+- um barbeiro pode atender vários agendamentos
+- um serviço pode estar associado a vários agendamentos
 
 # Como Executar o Projeto
 
-## Clonar repositório
+## Pré-requisitos
+- Node.js instalado
+- PostgreSQL instalado
+- Git instalado
 
+## Passo a passo
+### 1) Clone o repositório
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/GabrielDaSilvaCoelho/BarbeariaTerminal.git
 cd barberpro
 ```
 
-## Backend
-
+### 2) Instale as dependências
 ```bash
-cd backend
 npm install
 ```
 
-## Configurar `.env`
+### 3) Configure as variáveis de ambiente
+Crie um arquivo `.env` na raiz do projeto:
 
 ```env
+PORT=3000
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=barberpro
 DB_USER=postgres
-DB_PASSWORD=123456
-JWT_SECRET=barberpro-secret
+DB_PASSWORD=1234
+JWT_SECRET=jwt-key
 JWT_EXPIRES_IN=7d
-PORT=3000
+
 ```
 
-## Criar banco
+### 4) Crie o banco
+Crie um banco PostgreSQL chamado:
 
 ```sql
-CREATE DATABASE barberpro;
+barberpro
 ```
 
-## Rodar seed
+### 5) Execute o script SQL
+Execute o arquivo:
 
+```text
+database.sql
+```
+
+### 6) Popule dados iniciais
 ```bash
 npm run seed
 ```
 
-## Iniciar servidor
-
+### 7) Inicie o projeto
 ```bash
 npm start
 ```
+# Acesso à Aplicação
 
-## Abrir frontend
+## Front-end
+Abra os arquivos HTML no navegador ou use Live Server.
 
-Abra no navegador:
+Principais telas:
+- `frontend/login.html`
+- `frontend/cadastro.html`
+- `frontend/dashboard-admin.html`
+- `frontend/dashboard-cliente.html`
+- `frontend/novo-agendamento.html`
+- `frontend/novo-servico.html`
 
+## API
 ```text
-frontend/login.html
+http://localhost:3000
 ```
 
-# Boas Práticas de UI/UX Aplicadas
+# Usuários para Demonstração
 
-## Hierarquia visual
+## Administrador
+- E-mail: `admin@barberpro.com`
+- Senha: `1234`
 
-* títulos em destaque
-* sidebar para navegação
-* cards para separação visual
+## Cliente
+- E-mail: `cliente@barberpro.com`
+- Senha: `1234`
 
-## Feedback ao usuário
-
-* sucesso
-* erro
-* loading
-* confirmação de exclusão
-* empty state
-
-## Acessibilidade
-
-* focus visível
-* contraste adequado
-* labels em todos os campos
-* campos com toque mínimo 44x44
-
-## Responsividade
-
-* desktop
-* tablet
-* mobile
-* suporte 375px
-
-# Design Patterns Aplicados
-
-## Middleware Pattern
-
-Usado para:
-
-* autenticação
-* autorização
-* tratamento de erros
-
-## Service Layer Pattern
-
-Separação entre:
-
-* controller
-* service
-* model
-
-Benefício:
-
-* manutenção facilitada
-* melhor organização
-* reaproveitamento de lógica
-
-# Princípios SOLID
-
-## SRP — Single Responsibility
-
-Cada camada possui responsabilidade única.
-
-## DIP — Dependency Inversion
-
-Controllers dependem de services, reduzindo acoplamento.
-
-# Funcionalidades Entregues
-
-* login
-* cadastro
-* autenticação JWT
-* dois perfis
-* CRUD de serviços
-* CRUD de agendamentos
-* listagem
-* filtros por perfil
-* responsividade
-* feedback visual
-* seed
-* README
+> Ajuste conforme os dados reais do seu seed.
 
 
-# Conclusão
+# Principais Rotas da API
 
-O projeto foi desenvolvido com o propósito de atender, de forma integrada, aos requisitos das disciplinas de Desenvolvimento Web, Modelagem de Interfaces UI/UX e Design de Software.
+## Autenticação
+- `POST /api/auth/register`
+- `POST /api/auth/login`
 
-A solução proposta apresenta uma aplicação web full-stack funcional, com separação clara entre front-end e back-end, autenticação baseada em JWT, persistência em banco de dados relacional, interface responsiva e aplicação consciente de boas práticas de arquitetura e experiência do usuário.
+## Serviços
+- `GET /api/services`
+- `POST /api/services`
+- `PUT /api/services/:id`
+- `DELETE /api/services/:id`
 
-Além do atendimento aos requisitos funcionais mínimos, o sistema demonstra preocupação com manutenibilidade, escalabilidade, organização em camadas, padrões de projeto e princípios SOLID, evidenciando uma abordagem alinhada ao contexto acadêmico e às práticas utilizadas no mercado.
+## Agendamentos
+- `GET /api/appointments`
+- `POST /api/appointments`
+- `PUT /api/appointments/:id`
+- `DELETE /api/appointments/:id`
 
-Dessa forma, o BarberPro representa uma entrega consistente, coerente com o escopo proposto pela atividade e adequada para apresentação final.
+# Artefatos Complementares
 
-# Integrantes
+Na pasta `docs/` estão disponíveis:
 
-**Frederico da Silva Kunert**
-**Gabriel da Silva Coelho**
-PUC Goiás — Análise e Desenvolvimento de Sistemas
+- diagrama ER
+- diagrama estrutural
+- documentação dos Design Patterns
+- aplicação dos princípios SOLID
+- checklist UI/UX
+- evidências e capturas de tela
+
+## Protótipo Figma
+Adicionar link do Figma aqui:
+```text
+https://www.figma.com/design/dF1zbDsM0UU1dAzf8m0vzO/figma-integrador?t=M42LjVbKz4aMdz3u-0
+```
+
+# Capturas de Tela
+Recomendado adicionar no repositório:
+
+- dashboard admin
+- dashboard cliente
+- novo agendamento
+- gerenciar serviços
+
+# Autores
+**GABRIEL DA SILVA COELHO**
+**FREDERICO DA SILVA KUNERT**
+Projeto acadêmico desenvolvido para a **Atividade Integrada — PUC Goiás**
+Curso: **Análise e Desenvolvimento de Sistemas**

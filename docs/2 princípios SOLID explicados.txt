@@ -1,0 +1,24 @@
+SOLID 1 — SRP (Single Responsibility Principle)
+
+Cada módulo tem uma única responsabilidade.
+Routes → define endpoints
+Controllers → recebe req/res
+Services → regra de negócio
+Models → acesso ao banco
+Middlewares → autenticação
+Ou seja, cada camada faz apenas uma coisa bem definida.
+•	Benefício
+Fácil manutenção
+Código organizado
+Mais fácil testar
+Menos acoplamento
+
+SOLID 2 — DIP (Dependency Inversion Principle)
+Camadas superiores dependem de abstrações e serviços, não de detalhes do banco.
+Controller depende do Service
+Service depende do Model e não diretamente do PostgreSQL.
+•	Beneficio
+Troca de banco facilitada
+Menor acoplamento
+Código extensível
+Melhor arquitetura

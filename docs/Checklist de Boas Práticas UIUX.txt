@@ -1,0 +1,23 @@
+3.3.1 Hierarquia visual e layout
+[ATENDIDO]
+A aplicação utiliza sidebar fixa, cards padronizados, títulos destacados e botões primários com cor de destaque, garantindo hierarquia visual clara entre ações principais e secundárias.
+
+3.3.2 Consistência e padrões
+[ATENDIDO]
+Os mesmos componentes visuais são reutilizados em todas as telas, como botões, inputs, cards, sidebar e feedbacks, mantendo identidade visual consistente.
+
+3.3.3 Feedback e comunicação com o usuário
+[ATENDIDO]
+O sistema apresenta mensagens de sucesso, erro, estados vazios e confirmação visual após salvar serviços ou agendamentos.
+
+3.3.4 Formulários e validação
+[ATENDIDO]
+Todos os formulários possuem labels visíveis, campos obrigatórios, mensagens de erro e organização padronizada.
+
+3.3.5 Acessibilidade mínima
+[ATENDIDO]
+A interface mantém bom contraste entre fundo e texto, elementos clicáveis grandes e navegação simples e previsível.
+
+3.3.6 Responsividade
+[ATENDIDO]
+As telas foram estruturadas para desktop e adaptadas para mobile com layout flexível, menu lateral e componentes redimensionáveis.

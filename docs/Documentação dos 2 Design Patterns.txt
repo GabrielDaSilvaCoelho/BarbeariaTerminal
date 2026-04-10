@@ -1,0 +1,21 @@
+PATTERN 1 Middleware
+Categoria
+Estrutural
+•	Problema
+Precisávamos proteger rotas:Login, serviços, agendamentos e admin. Sem repetir código em todos os controllers. Para isso usamos authenticateToken,
+authorizeRole e errorHandler que o middleware “decora” a rota com comportamento extra.
+•	Benefício 
+Reutilização, Segurança, centralizada, fácil manutenção e Desacoplamento
+
+PATTERN 2  Facade
+Categoria
+Estrutural
+•	 Problema
+O frontend não pode acessar: banco, servisse, model e validações diretamente precisava de uma interface simples.
+Os controllers funcionam como fachada:
+AuthController
+ServicoController
+AgendamentoController
+Eles escondem: servisse, model, regras, validações, JSON response
+•	Beneficio 
+Simplifica o acesso, Menos acoplamento, Controller vira ponto único, Código organizado

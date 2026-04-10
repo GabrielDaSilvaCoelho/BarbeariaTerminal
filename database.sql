@@ -32,7 +32,7 @@ INSERT INTO users (nome, email, senha_hash, role)
 VALUES (
   'Administrador',
   'admin@barberpro.com',
-  '$2b$10$1LhY0s9N3JH8H9N7G6QwLe2QWb8h0xG2r0k0Vq2bJr7G3g2pN6qQK',
+  '$2b$10$1LhY0s9N3JH8H9N7G6QwLe2QWb8h0xG2r0k0Vq2bJr7G3g2pN6qQK', **senha=123456**
   'admin'
 )
 ON CONFLICT (email) DO NOTHING;
