@@ -1,7 +1,7 @@
 # BarberPro — Projeto Web Full-Stack
 
 O **BarberPro** é uma aplicação web full-stack desenvolvida para otimizar a gestão de serviços e agendamentos de uma barbearia.  
-O sistema atende dois perfis principais de usuário — **administrador/barbeiro** e **cliente** — oferecendo controle de agenda, cadastro de serviços e gerenciamento de atendimentos de forma digital, organizada e responsiva.
+O sistema atende dois perfis principais de usuário — **administrador/barbeiro** e **cliente** — oferecendo controle de agenda, cadastro de serviços e gerenciamento de atendimentos de forma digital, organizada e responsiva
 
 
 #  Objetivo do Projeto
