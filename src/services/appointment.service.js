@@ -30,6 +30,12 @@ async function create(data) {
     throw error;
   }
 
+  if (startAt < new Date()) {
+    const error = new Error('Não é permitido agendar para uma data/hora no passado.');
+    error.statusCode = 400;
+    throw error;
+  }
+
   const durationMs = Number(service.duracao_min) * 60 * 1000;
   const endAt = new Date(startAt.getTime() + durationMs);
 
@@ -47,7 +53,11 @@ async function create(data) {
     throw error;
   }
 
-  return appointmentRepository.create(data);
+  return appointmentRepository.create({
+    ...data,
+    service_id: Number(data.service_id),
+    barbeiro_id: Number(data.barbeiro_id)
+  });
 }
 
 async function listAll(user, tipo = 'ativos') {
@@ -85,12 +95,21 @@ async function updateStatus(id, status) {
   return appointmentRepository.updateStatus(id, status);
 }
 
-async function remove(id) {
+async function remove(id, user) {
   const existing = await appointmentRepository.findById(id);
 
   if (!existing) {
     const error = new Error('Agendamento não encontrado.');
     error.statusCode = 404;
+    throw error;
+  }
+
+  const isClienteDono = user.role === 'cliente' && Number(existing.cliente_id) === Number(user.id);
+  const isAdminOuBarbeiro = ['admin', 'barbeiro'].includes(user.role);
+
+  if (!isClienteDono && !isAdminOuBarbeiro) {
+    const error = new Error('Você não tem permissão para remover este agendamento.');
+    error.statusCode = 403;
     throw error;
   }
 

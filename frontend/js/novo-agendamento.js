@@ -4,6 +4,7 @@ const serviceSelect = document.getElementById('service_id');
 const barbeiroSelect = document.getElementById('barbeiro_id');
 const form = document.getElementById('appointment-form');
 const feedback = document.getElementById('feedback');
+const submitBtn = form.querySelector('button[type="submit"]');
 
 async function loadServices() {
   const response = await fetch(`${API_BASE}/services`, {
@@ -27,16 +28,22 @@ async function loadServices() {
 }
 
 async function loadBarbeiros() {
-  const response = await fetch('http://localhost:3000/api/barbeiros');
+  const response = await fetch(`${API_BASE}/barbeiros`, {
+    headers: authHeaders()
+  });
 
   const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Erro ao carregar barbeiros.');
+  }
 
   barbeiroSelect.innerHTML = '<option value="">Selecione</option>';
 
   data.forEach(user => {
     const option = document.createElement('option');
     option.value = user.id;
-    option.textContent = `${user.nome} (${user.role})`;
+    option.textContent = `${user.nome}`;
     barbeiroSelect.appendChild(option);
   });
 }
@@ -79,6 +86,28 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
+async function excluirAgendamento(id) {
+  const confirmar = confirm('Tem certeza que deseja excluir este agendamento?');
+
+  if (!confirmar) return;
+
+  try {
+    const response = await fetch(`${API_BASE}/appointments/${id}`, {
+      method: 'DELETE',
+      headers: authHeaders()
+    });
+
+    if (!response.ok) {
+      throw new Error('Erro ao excluir agendamento.');
+    }
+
+    setFeedback('Agendamento removido com sucesso.', 'success');
+    loadAppointments();
+  } catch (error) {
+    setFeedback(error.message, 'error');
+  }
+}
+
 (async function init() {
   try {
     await loadServices();
@@ -86,5 +115,8 @@ form.addEventListener('submit', async (e) => {
   } catch (error) {
     feedback.textContent = error.message;
     feedback.className = 'feedback error';
+  }finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Entrar';
   }
 })();

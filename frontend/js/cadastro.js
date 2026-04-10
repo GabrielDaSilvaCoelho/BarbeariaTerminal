@@ -1,5 +1,7 @@
 const form = document.getElementById('register-form');
 const feedback = document.getElementById('feedback');
+const submitBtn = form.querySelector('button[type="submit"]');
+
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -37,5 +39,8 @@ form.addEventListener('submit', async (e) => {
   } catch (error) {
     feedback.textContent = error.message;
     feedback.className = 'feedback error';
+  }finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Entrar';
   }
 });

@@ -184,7 +184,6 @@ async function seed() {
     console.log('Seed executada com sucesso.');
     console.log('Usuários de teste:');
     console.log(' - admin@barberpro.com | senha: 123456 | role: admin');
-    console.log(' - carlos@barberpro.com | senha: 123456 | role: barbeiro');
     console.log(' - joao@barberpro.com | senha: 123456 | role: cliente');
   } catch (error) {
     await client.query('ROLLBACK');

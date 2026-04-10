@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
-
+const authMiddleware = require('./middlewares/auth.middleware');
 const authRoutes = require('./routes/auth.routes');
 const servicesRoutes = require('./routes/services.routes');
 const appointmentsRoutes = require('./routes/appointments.routes');
@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
-app.get('/api/barbeiros', async (req, res, next) => {
+app.get('/api/barbeiros', authMiddleware, async (req, res, next) => {
   try {
     const barbeiros = await userRepository.findBarbeirosEAdmins();
     res.json(barbeiros);

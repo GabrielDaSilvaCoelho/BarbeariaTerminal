@@ -38,7 +38,7 @@ async function updateStatus(req, res, next) {
 
 async function remove(req, res, next) {
   try {
-    const deleted = await appointmentService.remove(req.params.id);
+    const deleted = await appointmentService.remove(req.params.id, req.user);
     res.json(deleted);
   } catch (error) {
     next(error);

@@ -2,8 +2,36 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const userRepository = require('../repositories/user.repository');
 
+function isEmailValido(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
 async function register({ nome, email, senha, role = 'cliente' }) {
-  const existingUser = await userRepository.findByEmail(email);
+  if (!nome || !nome.trim()) {
+    const error = new Error('Nome é obrigatório.');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (!email || !email.trim()) {
+    const error = new Error('E-mail é obrigatório.');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (!isEmailValido(email)) {
+    const error = new Error('E-mail inválido.');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (!senha || senha.length < 6) {
+    const error = new Error('A senha deve ter pelo menos 6 caracteres.');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const existingUser = await userRepository.findByEmail(email.trim().toLowerCase());
 
   if (existingUser) {
     const error = new Error('E-mail já cadastrado.');
@@ -14,8 +42,8 @@ async function register({ nome, email, senha, role = 'cliente' }) {
   const senhaHash = await bcrypt.hash(senha, 10);
 
   const user = await userRepository.create({
-    nome,
-    email,
+    nome: nome.trim(),
+    email: email.trim().toLowerCase(),
     senhaHash,
     role
   });
@@ -24,7 +52,13 @@ async function register({ nome, email, senha, role = 'cliente' }) {
 }
 
 async function login({ email, senha }) {
-  const user = await userRepository.findByEmail(email);
+  if (!email || !senha) {
+    const error = new Error('E-mail e senha são obrigatórios.');
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const user = await userRepository.findByEmail(email.trim().toLowerCase());
 
   if (!user) {
     const error = new Error('Credenciais inválidas.');
@@ -48,7 +82,7 @@ async function login({ email, senha }) {
       role: user.role
     },
     process.env.JWT_SECRET,
-    { expiresIn: '1d' }
+    { expiresIn: process.env.JWT_EXPIRES_IN || '1d' }
   );
 
   return {

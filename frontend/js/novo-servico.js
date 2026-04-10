@@ -4,7 +4,7 @@ const logoutBtn = document.getElementById('logout-btn');
 const form = document.getElementById('service-form');
 const feedback = document.getElementById('feedback');
 const servicesList = document.getElementById('services-list');
-
+const submitBtn = form.querySelector('button[type="submit"]');
 const serviceIdInput = document.getElementById('service-id');
 const saveBtn = document.getElementById('save-btn');
 
