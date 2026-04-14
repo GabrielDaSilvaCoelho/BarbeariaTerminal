@@ -58,8 +58,7 @@ Dois atores interagem com o sistema:
 O sistema se integra com um **Serviço de Notificação** externo, que recebe eventos para envio de mensagens.
 
 ```
-
-> ![Diagrama visual disponível em](docs/contexto.png)
+![Diagrama visual disponível em](./docs/contexto.png)
 
 ---
 
@@ -79,7 +78,7 @@ O diagrama de container detalha os componentes internos do sistema BarberPro:
 **Fluxo interno:**
 O Frontend envia requisições para a API Principal → A API publica eventos no Broker (RabbitMQ) → O Worker consome os eventos e atualiza o banco → O WebSocket envia atualizações em tempo real para o frontend → O sistema também envia notificações para o Serviço de Notificação externo.
 
-![Diagrama visual disponível em](docs/container.png)
+![Diagrama visual disponível em](./docs/container.png)
 
 ---
 
@@ -87,7 +86,7 @@ O Frontend envia requisições para a API Principal → A API publica eventos no
 
 O domínio é composto por três entidades principais:
 
-![Diagrama visual disponível em ](docs/Captura_de_tela_2026-04-13_230656.png)
+![Diagrama visual disponível em ](./docs/Captura_de_tela_2026-04-13_230656.png)
 
 ### User
 
