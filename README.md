@@ -30,17 +30,6 @@ O sistema atende dois perfis principais de usuário — **administrador/barbeiro
 
 ---
 
-## Identificação do Projeto
-
-| Campo | Informação |
-|---|---|
-| **Nome** | BarberPro |
-| **Repositório** | https://github.com/GabrielDaSilvaCoelho/BarbeariaTerminal |
-| **Protótipo Figma** | https://www.figma.com/design/dF1zbDsM0UU1dAzf8m0vzO/figma-integrador |
-| **Integrantes** | Gabriel da Silva Coelho, Frederico da Silva Kunert |
-| **Curso** | Análise e Desenvolvimento de Sistemas — PUC Goiás |
-
----
 
 ## Problema que o Sistema Resolve
 
