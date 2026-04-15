@@ -6,15 +6,15 @@ const pool = new Pool({
   port: Number(process.env.DB_PORT),
   database: process.env.DB_NAME,
   user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD || undefined
+  password: process.env.DB_PASSWORD
 });
 
 pool.connect()
   .then(() => {
-    console.log(' PostgreSQL conectado com sucesso');
+    console.log('PostgreSQL conectado com sucesso');
   })
   .catch((err) => {
-    console.error(' Erro ao conectar no PostgreSQL:', err.message);
+    console.error('Erro ao conectar no PostgreSQL:', err.message);
   });
 
 module.exports = pool;

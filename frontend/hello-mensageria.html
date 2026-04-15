@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello World - Mensageria</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .card {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      color: #0B1F4D;
+    }
+
+    p {
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background: #0B1F4D;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      opacity: 0.95;
+    }
+
+    #result {
+      margin-top: 16px;
+      font-weight: bold;
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Hello World da Arquitetura</h1>
+    <p>Envie uma mensagem do Front para o Back, que publicará na fila RabbitMQ.</p>
+
+    <input type="text" id="message" placeholder="Digite uma mensagem" />
+    <button id="sendBtn">Enviar mensagem</button>
+
+    <p id="result"></p>
+  </div>
+
+  <script>
+  document.getElementById('sendBtn').addEventListener('click', async () => {
+    const message = document.getElementById('message').value.trim();
+    const result = document.getElementById('result');
+
+    if (!message) {
+      result.textContent = 'Digite uma mensagem.';
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:3000/api/hello', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        result.textContent = data.message;
+      } else {
+        result.textContent = data.error || 'Erro ao enviar a mensagem.';
+      }
+    } catch (error) {
+      result.textContent = 'Erro de comunicação com o backend.';
+      console.error(error);
+    }
+  });
+</script>
+</body>
+</html>
