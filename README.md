@@ -88,7 +88,7 @@ O diagrama de container detalha os componentes internos do sistema BarberPro:
 **Fluxo interno:**  
 O frontend envia requisições para a API Principal → A API publica eventos no broker (RabbitMQ) → O worker consome os eventos e atualiza o banco → O WebSocket envia atualizações em tempo real para o frontend → O sistema também envia notificações para o Serviço de Notificação externo.
 
-![Diagrama de Container do BarberPro](./docs/container.png)
+![Diagrama de Container do BarberPro](./docs/conteiner.jpeg)
 
 ---
 
@@ -96,7 +96,7 @@ O frontend envia requisições para a API Principal → A API publica eventos no
 
 O domínio é composto por três entidades principais:
 
-![Diagrama de Classes do Domínio](./docs/Captura_de_tela_2026-04-13_230656.png)
+![Diagrama de Classes do Domínio](./docs/Captura de tela 2026-04-13 230656.png)
 
 ### User
 
