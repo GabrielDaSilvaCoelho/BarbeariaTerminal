@@ -96,7 +96,7 @@ O frontend envia requisições para a API Principal → A API publica eventos no
 
 O domínio é composto por três entidades principais:
 
-![Diagrama de Classes do Domínio](./docs/Captura de tela 2026-04-13 230656.png)
+![Diagrama de Classes do Domínio](./docs/Diagramaclasse.png)
 
 ### User
 
