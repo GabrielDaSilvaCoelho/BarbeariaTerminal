@@ -324,6 +324,112 @@ O `AppointmentController` depende de `AppointmentService`, que por sua vez depen
 
 ---
 
+## Testes
+
+O BarberPro possui um plano de testes focado nas funcionalidades centrais do sistema, cobrindo autenticação, cadastro de usuários, gerenciamento de serviços, agendamentos, controle de acesso por perfil e tratamento de erros.
+
+### Objetivo dos testes
+
+Garantir que o sistema se comporte conforme o esperado, validando:
+
+- funcionamento das rotas principais da API
+- regras de negócio do sistema
+- permissões de acesso por perfil
+- integridade dos dados
+- respostas adequadas em casos de erro
+
+### Escopo dos testes
+
+Os testes contemplam as seguintes áreas:
+
+- Autenticação e autorização
+- Cadastro de usuários
+- Gerenciamento de serviços
+- Agendamentos
+- Controle de acesso por perfil
+- Validações e tratamento de erros
+
+### Tipos de teste previstos
+
+| Tipo de teste | Finalidade |
+|---|---|
+| **Teste funcional** | Validar o comportamento esperado das funcionalidades |
+| **Teste de segurança** | Verificar autenticação, autorização e proteção das rotas |
+| **Teste de validação** | Conferir entrada de dados inválidos ou incompletos |
+| **Teste de integridade** | Garantir regras de negócio, como conflito de horários |
+| **Teste de erro** | Validar respostas HTTP em situações de falha |
+
+### Resumo dos cenários mapeados
+
+| Área | Quantidade de cenários |
+|---|---:|
+| Autenticação e autorização | 7 |
+| Cadastro de usuários | 6 |
+| Gerenciamento de serviços | 10 |
+| Agendamentos | 14 |
+| Controle de acesso | 3 |
+| Validações e erros | 3 |
+| **Total** | **43** |
+
+### Exemplos de cenários de teste
+
+#### Autenticação e autorização
+
+- Login com credenciais válidas deve retornar `200` com token JWT
+- Login com senha incorreta deve retornar `401`
+- Acesso a rota protegida sem token deve retornar `401`
+- Acesso com token inválido deve retornar `401`
+
+#### Cadastro de usuários
+
+- Cadastro com dados válidos deve retornar `201`
+- Cadastro com e-mail já existente deve retornar `409`
+- Cadastro com e-mail inválido deve retornar `400`
+- Cadastro com senha curta deve retornar `400`
+
+#### Gerenciamento de serviços
+
+- Usuário admin/barbeiro pode criar serviço
+- Cliente não pode criar serviço
+- Serviço com preço inválido deve retornar erro
+- Edição de serviço inexistente deve retornar `404`
+
+#### Agendamentos
+
+- Cliente pode criar agendamento válido
+- Agendamento em data passada deve ser rejeitado
+- Agendamento com conflito de horário deve retornar `409`
+- Cliente só pode visualizar os próprios agendamentos
+- Admin pode visualizar todos os agendamentos
+
+#### Controle de acesso
+
+- Cliente não pode acessar rotas exclusivas de admin/barbeiro
+- Admin pode acessar todas as rotas protegidas
+- Listagem de barbeiros exige autenticação
+
+#### Validações e tratamento de erros
+
+- Rota inexistente deve retornar `404`
+- Erro interno deve retornar `500` com mensagem padronizada
+- Campos com tipo inválido devem retornar `400`
+
+### Resultado esperado
+
+Com a execução desse plano de testes, espera-se garantir:
+
+- estabilidade das funcionalidades principais
+- segurança no controle de acesso
+- confiabilidade das regras de negócio
+- consistência das respostas da API
+- melhor manutenção e evolução do sistema
+
+### Observação
+
+O plano completo de testes, com todos os **43 cenários detalhados**, está documentado no arquivo principal da documentação técnica do projeto.
+
+---
+
 ## Perfis de Usuário e Permissões
 
 | Funcionalidade | Cliente | Barbeiro | Admin |
