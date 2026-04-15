@@ -469,3 +469,188 @@ A autenticação é realizada por meio de **JWT (JSON Web Token)**.
 users        → id, nome, email, senha_hash, role, created_at
 services     → id, nome, descricao, preco, duracao_min, ativo, created_at
 appointments → id, cliente_id, barbeiro_id, service_id, data_hora, status, observacoes, created_at
+
+```
+
+### Relacionamentos
+
+- `User` (cliente) `1 ──── *` `Appointment` via `cliente_id`
+- `User` (barbeiro) `1 ──── *` `Appointment` via `barbeiro_id`
+- `Service` `1 ──── *` `Appointment` via `service_id`
+
+---
+
+## Principais Rotas da API
+
+Base URL: `http://localhost:3000`
+
+Rotas protegidas exigem o header: `Authorization: Bearer <token>`
+
+### Autenticação — `/api/auth`
+
+| Método | Rota | Proteção | Descrição |
+|---|---|---|---|
+| `POST` | `/api/auth/register` | Pública | Cadastro de novo cliente |
+| `POST` | `/api/auth/login` | Pública | Login e geração de JWT |
+| `GET` | `/api/auth/me` | `authMiddleware` | Retorna dados do usuário logado |
+
+### Serviços — `/api/services`
+
+| Método | Rota | Proteção | Descrição |
+|---|---|---|---|
+| `GET` | `/api/services` | `authMiddleware` | Lista todos os serviços ativos |
+| `POST` | `/api/services` | `admin \| barbeiro` | Cria novo serviço |
+| `PUT` | `/api/services/:id` | `admin \| barbeiro` | Edita serviço existente |
+| `DELETE` | `/api/services/:id` | `admin \| barbeiro` | Remove serviço |
+
+### Agendamentos — `/api/appointments`
+
+| Método | Rota | Proteção | Descrição |
+|---|---|---|---|
+| `GET` | `/api/appointments` | `authMiddleware` | Lista agendamentos (filtrado por role) |
+| `POST` | `/api/appointments` | `cliente` | Cria novo agendamento |
+| `PATCH` | `/api/appointments/:id/status` | `admin \| barbeiro` | Atualiza status do agendamento |
+| `DELETE` | `/api/appointments/:id` | `authMiddleware` | Remove agendamento (dono ou admin) |
+| `GET` | `/api/barbeiros` | `authMiddleware` | Lista barbeiros e admins disponíveis |
+
+---
+
+## Tecnologias Utilizadas
+
+### Back-end
+
+| Tecnologia | Versão | Uso |
+|---|---|---|
+| Node.js | v18+ | Runtime |
+| Express.js | v4.19 | Framework HTTP |
+| PostgreSQL | — | Banco de dados relacional |
+| pg (node-postgres) | v8.12 | Driver do banco |
+| jsonwebtoken | v9.0 | Geração e validação de JWT |
+| bcrypt | v5.1 | Hash de senhas |
+| dotenv | v16.4 | Variáveis de ambiente |
+
+### Front-end
+
+- HTML5 semântico
+- CSS3 responsivo com variáveis CSS (`--navy`, `--gold`, etc.)
+- JavaScript Vanilla + Fetch API
+- Bootstrap 5 como base do Design System
+
+### Infraestrutura
+
+- Docker (containerização do ambiente)
+- Git / GitHub (controle de versão)
+
+---
+
+## Como Executar o Projeto
+
+### Pré-requisitos
+
+- Node.js v18+ instalado
+- PostgreSQL instalado e em execução
+- Git instalado
+- Docker (opcional)
+
+### Passo a passo
+
+#### 1) Clone o repositório
+
+```bash
+git clone https://github.com/GabrielDaSilvaCoelho/BarbeariaTerminal.git
+cd BarbeariaTerminal-main
+```
+
+#### 2) Instale as dependências
+
+```bash
+npm install
+```
+
+#### 3) Configure as variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```env
+PORT=3000
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=barberpro
+DB_USER=postgres
+DB_PASSWORD=sua_senha
+JWT_SECRET=sua_chave_jwt
+JWT_EXPIRES_IN=7d
+```
+
+#### 4) Crie o banco de dados
+
+```sql
+CREATE DATABASE barberpro;
+```
+
+#### 5) Execute o script SQL
+
+```bash
+psql -U postgres -d barberpro -f database.sql
+```
+
+#### 6) Popule dados iniciais
+
+```bash
+npm run seed
+```
+
+#### 7) Inicie o servidor
+
+```bash
+npm start
+```
+
+O servidor estará disponível em `http://localhost:3000`
+
+### Telas principais
+
+| Arquivo | Descrição |
+|---|---|
+| `frontend/login.html` | Tela de login |
+| `frontend/cadastro.html` | Tela de cadastro de cliente |
+| `frontend/dashboard-admin.html` | Painel do administrador/barbeiro |
+| `frontend/dashboard-cliente.html` | Painel do cliente |
+| `frontend/novo-agendamento.html` | Formulário de novo agendamento |
+| `frontend/novo-servico.html` | Formulário de cadastro de serviço |
+
+### Usuários para demonstração
+
+| Perfil | E-mail | Senha |
+|---|---|---|
+| Administrador | `admin@barberpro.com` | `123456` |
+| Cliente | `cliente@barberpro.com` | `123456` |
+
+---
+
+## Artefatos Complementares
+
+Na pasta `docs/` estão disponíveis:
+
+- `contexto.png` — Diagrama C4 de Contexto
+- `container.png` — Diagrama C4 de Container
+- `Captura_de_tela_2026-04-13_230656.png` — Diagrama de Classes do domínio
+- `Documentação dos 2 Design Patterns.txt` — Documentação detalhada dos padrões
+- `2 princípios SOLID explicados.txt` — Aplicação dos princípios SOLID
+- `Checklist de Boas Práticas UIUX.txt` — Checklist de UI/UX atendidos
+- `Justificativa do Design System.txt` — Justificativa da escolha do Bootstrap 5
+- `link do figma.txt` — Link do protótipo navegável
+
+### Protótipo Figma
+
+```
+https://www.figma.com/design/dF1zbDsM0UU1dAzf8m0vzO/figma-integrador?t=M42LjVbKz4aMdz3u-0
+```
+
+---
+# Autores
+**GABRIEL DA SILVA COELHO**
+**FREDERICO DA SILVA KUNERT**
+**ARTHUR BOAVENTURA RIESCO**
+Projeto acadêmico desenvolvido para a **Atividade Integrada — PUC Goiás**
+Curso: **Análise e Desenvolvimento de Sistemas**
