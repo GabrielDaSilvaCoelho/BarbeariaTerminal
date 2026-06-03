@@ -6,7 +6,7 @@ A versão atual do projeto utiliza **Spring Boot no backend**, **React com Vite 
 
 > Projeto acadêmico desenvolvido para prática de arquitetura web, backend Java, frontend React, banco de dados, mensageria e testes automatizados.
 
----
+----
 
 ## Sumário
 
